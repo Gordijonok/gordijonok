@@ -1,0 +1,179 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(60, 212, 81);
+  padding: 30px;
+}
+
+.black {
+  background-color: rgb(9, 105, 21);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo__home {
+  width: 10vw;
+  margin-right: 90px;
+}
+
+.logo__sun {
+  width: 5vw;
+}
+
+.nav__list {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+}
+
+.nav__elem {
+  border-radius: 10px;
+  border: 2px solid #fff;
+  padding: 9px;
+  margin-left: 20px;
+  color: #fff;
+  list-style-type: none;
+}
+
+.main {
+  background-color: rgb(115, 222, 133);
+  text-align: center;
+}
+
+.main_title {
+  margin: 0;
+  font-size: 50px;
+  padding: 30px;
+}
+
+.main__input {
+  padding: 10px 50px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.films {
+  margin: 0;
+  padding: 0 5px;
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.film {
+  width: 28vw;
+  margin: 5px;
+  position: relative;
+}
+
+.film img {
+  width: 100%;
+  height: 100%;
+}
+
+.head {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20%;
+}
+
+.film__head {
+  color: #ee0707;
+  border: 3px solid #ee0707;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+footer {
+  background-color: rgb(60, 212, 81);
+  margin: 0;
+  padding: 20px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.main__signin {
+  padding: 30px 0;
+}
+
+.signin {
+  max-width: 500px;
+  margin: 0px auto;
+  border: 1px solid rgb(2, 63, 19);
+  background-color: #75dc75;
+  border-radius: 20px;
+  text-align: left;
+}
+
+.signin__title {
+  text-align: center;
+  font-size: 40px;
+  margin: 25px;
+  color: #fff;
+}
+
+.signin input {
+  display: block;
+  margin: 0 auto;
+  padding: 15px;
+  width: 80%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.signin label {
+  color: #fff;
+  padding-left: 50px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.signin__btn {
+  margin: 0 auto 15px auto;
+  padding: 10px 20px;
+  display: block;
+  width: 150px;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  header {
+    padding: 10px 0;
+  }
+  .logo__sun {
+    display: none;
+  }
+  footer {
+    padding: 10px;
+    font-size: 20px;
+  }
+  .main__input {
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+  .main h2 {
+    margin: 0;
+    font-size: 30px;
+    padding: 10px;
+  }
+}
