@@ -13,7 +13,6 @@ function Filminfo() {
 
   useEffect(() => {
     axios.get(url, { params: { i: paramsName } }).then((respons) => {
-      console.log(respons.data);
       setSelectedFilm(respons.data);
     });
   }, []);
@@ -25,16 +24,16 @@ function Filminfo() {
         <Likes />
       </div>
       <div className="selected__text">
-        <h4>Title: {selectedFilm.Title}</h4>
-        <h4>Year: {selectedFilm.Year}</h4>
-        <h4>Country: {selectedFilm.Country}</h4>
-        <h4>Released: {selectedFilm.Released}</h4>
-        <h4>Runtime: {selectedFilm.Runtime}</h4>
-        <h4>Genre: {selectedFilm.Genre}</h4>
-        <h4>Released: {selectedFilm.Released}</h4>
-        <h4>Actors: {selectedFilm.Actors}</h4>
-        <h4>Director: {selectedFilm.Director}</h4>
-        <h4>Description: {selectedFilm.Description}</h4>
+        <p>Title: {selectedFilm.Title}</p>
+        <p>Year: {selectedFilm.Year}</p>
+        <p>Country: {selectedFilm.Country}</p>
+        <p>Released: {selectedFilm.Released}</p>
+        <p>Runtime: {selectedFilm.Runtime}</p>
+        <p>Genre: {selectedFilm.Genre}</p>
+        <p>Released: {selectedFilm.Released}</p>
+        <p>Actors: {selectedFilm.Actors}</p>
+        <p>Director: {selectedFilm.Director}</p>
+        <p>Description: {selectedFilm.Description}</p>
       </div>
     </div>
   );

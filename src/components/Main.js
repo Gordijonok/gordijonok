@@ -8,7 +8,7 @@ const url = "http://www.omdbapi.com/?apikey=5b7ac53d&type=movie&s=";
 const urlMenu = url + "sunshine";
 
 function Main() {
-  const [film, setFilm] = useState([]);
+  const [films, setFilm] = useState([]);
   const [urlfilm, setUrlfilm] = useState(urlMenu);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ function Main() {
         type="text"
         placeholder="search movie"
       />
-      <Films films={film} />
+      <Films films={films} />
     </div>
   );
 }
