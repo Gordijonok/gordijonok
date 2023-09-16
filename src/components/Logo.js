@@ -8,15 +8,12 @@ function Logo({ black, setBlack }) {
       <a href="/">
         <img className="logo__home" src={home} alt="home" />
       </a>
-      <a href="#">
-        {" "}
-        <img
-          className="logo__sun"
-          onClick={() => setBlack((black) => !black)}
-          src={black ? sun : moon}
-          alt="sun"
-        />
-      </a>
+      <img
+        className="logo__sun"
+        onClick={() => setBlack((black) => !black)}
+        src={black ? sun : moon}
+        alt="sun"
+      />
     </div>
   );
 }
