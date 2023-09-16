@@ -7,7 +7,8 @@ import { Films } from "./Films.js";
 const url = "http://www.omdbapi.com/?apikey=5b7ac53d&type=movie&s=";
 const urlMenu = url + "sunshine";
 
-function Main({ film, setFilm }) {
+function Main() {
+  const [film, setFilm] = useState([]);
   const [urlfilm, setUrlfilm] = useState(urlMenu);
 
   useEffect(() => {
@@ -21,8 +22,7 @@ function Main({ film, setFilm }) {
       setUrlfilm(urlMenu);
       return;
     }
-    const newurl = url + e.target.value;
-    setUrlfilm(newurl);
+    setUrlfilm(url + e.target.value);
   }
 
   return (
