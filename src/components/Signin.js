@@ -5,14 +5,26 @@ function Signin() {
         <form className="signin" action="">
           <h5 className="signin__title">Sign in</h5>
           <label htmlFor="signinEmail">E-mail</label>
-          <input id="signinEmail" type="text" placeholder="Your email" />
+          <input
+            id="signinEmail"
+            name="inemail"
+            type="text"
+            placeholder="Your email"
+          />
           <label htmlFor="signinPassword">Password</label>
-          <input id="signinPassword" type="text" placeholder="Your password" />
-          <button className="signin__btn">Sign in</button>
+          <input
+            id="signinPassword"
+            name="inpassword"
+            type="text"
+            placeholder="Your password"
+          />
+          <button className="signin__btn" type="submit">
+            Sign in
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
-export { Signin };
+export default Signin;

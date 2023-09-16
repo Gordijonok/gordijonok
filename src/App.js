@@ -1,27 +1,59 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { BrowserRouter } from "react-router-dom";
 
-import { MyProvider } from "./provider/MyProvider.js";
 import { Header } from "./components/Header.js";
-import { Main } from "./components/Main.js";
 import { Footer } from "./components/Footer.js";
-import { Signin } from "./components/Signin.js";
-import { Signup } from "./components/Signup.js";
+import { Loading } from "./components/Loading.js";
 
 import "./style.css";
+
+const Main = lazy(() => import("./components/Main.js"));
+const Signin = lazy(() => import("./components/Signin.js"));
+const Signup = lazy(() => import("./components/Signup.js"));
+const Filminfo = lazy(() => import("./components/Filminfo.js"));
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Main />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signin"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Signin />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Signup />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/filminfo/:id"
+          element={
+            <Suspense fallback={<Loading />}>
+              <Filminfo />
+            </Suspense>
+          }
+        />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );

@@ -4,24 +4,39 @@ import axios from "axios";
 
 import { Films } from "./Films.js";
 
-const src = "http://www.omdbapi.com/?apikey=5b7ac53d&s=sunshine&type=movie";
+const url = "http://www.omdbapi.com/?apikey=5b7ac53d&type=movie&s=";
+const urlMenu = url + "sunshine";
 
 function Main() {
-  const [film, setFilm] = useState([]);
+  const [films, setFilm] = useState([]);
+  const [urlfilm, setUrlfilm] = useState(urlMenu);
 
   useEffect(() => {
-    axios.get(src).then((resp) => {
+    axios.get(urlfilm).then((resp) => {
       setFilm(resp.data.Search);
     });
-  }, []);
+  }, [setFilm, urlfilm]);
+
+  function searchFilms(e) {
+    if (e.target.value === "") {
+      setUrlfilm(urlMenu);
+      return;
+    }
+    setUrlfilm(url + e.target.value);
+  }
 
   return (
     <div className="main">
       <h2 className="main_title">Movie searching</h2>
-      <input className="main__input" type="text" placeholder="search movie" />
-      <Films films={film} />
+      <input
+        onChange={(e) => searchFilms(e)}
+        className="main__input"
+        type="text"
+        placeholder="search movie"
+      />
+      <Films films={films} />
     </div>
   );
 }
 
-export { Main };
+export default Main;
