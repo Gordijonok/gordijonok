@@ -10,7 +10,6 @@ function Filminfo() {
   const [selectedFilm, setSelectedFilm] = useState({});
   const url = "http://www.omdbapi.com/?apikey=5b7ac53d";
   const paramsName = useParams().id;
-
   useEffect(() => {
     axios.get(url, { params: { i: paramsName } }).then((respons) => {
       setSelectedFilm(respons.data);

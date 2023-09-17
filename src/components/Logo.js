@@ -1,8 +1,13 @@
+import { useContext } from "react";
+
 import home from "../img/home.png";
 import sun from "../img/sun.png";
 import moon from "../img/moon.png";
 
-function Logo({ black, setBlack }) {
+import { ThemeContext } from "./ThemeProvider";
+
+function Logo() {
+  const { isDark, setIdDark } = useContext(ThemeContext);
   return (
     <div class="logo">
       <a href="/">
@@ -10,8 +15,8 @@ function Logo({ black, setBlack }) {
       </a>
       <img
         className="logo__sun"
-        onClick={() => setBlack((black) => !black)}
-        src={black ? sun : moon}
+        onClick={() => setIdDark((isDark) => !isDark)}
+        src={isDark ? sun : moon}
         alt="sun"
       />
     </div>

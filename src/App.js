@@ -7,6 +7,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Header } from "./components/Header.js";
 import { Footer } from "./components/Footer.js";
 import { Loading } from "./components/Loading.js";
+import { ThemeProvider } from "./components/ThemeProvider.js";
+import { ErrorBoundary } from "./components/ErrorBoundary.js";
+import { ErrorFallback } from "./components/ErrorFallback.js";
 
 import "./style.css";
 
@@ -18,43 +21,47 @@ const Filminfo = lazy(() => import("./components/Filminfo.js"));
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Main />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Signin />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Signup />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/filminfo/:id"
-          element={
-            <Suspense fallback={<Loading />}>
-              <Filminfo />
-            </Suspense>
-          }
-        />
-      </Routes>
+      <ThemeProvider>
+        <Header />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Main />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Signin />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Signup />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/filminfo/:id"
+            element={
+              <Suspense fallback={<Loading />}>
+                <ErrorBoundary fallback={<ErrorFallback />}>
+                  <Filminfo />
+                </ErrorBoundary>
+              </Suspense>
+            }
+          />
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </ThemeProvider>
     </BrowserRouter>
   );
 }
