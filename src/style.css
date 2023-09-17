@@ -54,6 +54,11 @@ a {
   text-align: center;
 }
 
+.main_black {
+  background-color: rgb(56, 211, 82);
+  text-align: center;
+}
+
 .main__no h5 {
   margin: 0;
   padding-bottom: 20px;
@@ -186,6 +191,13 @@ footer {
   padding: 50px;
   font-size: 30px;
 }
+
+.error {
+  background-color: rgb(115, 222, 133);
+  text-align: center;
+  padding: 30px;
+}
+
 @media screen and (max-width: 768px) {
   body {
     font-size: 15px;

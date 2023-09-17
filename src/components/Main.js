@@ -1,13 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import axios from "axios";
 
+import { ErrorBoundary } from "../components/ErrorBoundary.js";
+import { ErrorFallback } from "../components/ErrorFallback.js";
+
 import { Films } from "./Films.js";
+import { ThemeContext } from "./ThemeProvider.js";
 
 const url = "http://www.omdbapi.com/?apikey=5b7ac53d&type=movie&s=";
 const urlMenu = url + "sunshine";
 
 function Main() {
+  const { isDark } = useContext(ThemeContext);
   const [films, setFilm] = useState([]);
   const [urlfilm, setUrlfilm] = useState(urlMenu);
 
@@ -26,7 +31,7 @@ function Main() {
   }
 
   return (
-    <div className="main">
+    <div className={isDark ? "main_black" : "main"}>
       <h2 className="main_title">Movie searching</h2>
       <input
         onChange={(e) => searchFilms(e)}
@@ -34,7 +39,9 @@ function Main() {
         type="text"
         placeholder="search movie"
       />
-      <Films films={films} />
+      <ErrorBoundary fallback={<ErrorFallback />}>
+        <Films films={films} />
+      </ErrorBoundary>
     </div>
   );
 }
