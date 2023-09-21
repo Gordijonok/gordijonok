@@ -9,7 +9,7 @@ import { ThemeContext } from "./ThemeProvider";
 function Logo() {
   const { isDark, setIdDark } = useContext(ThemeContext);
   return (
-    <div class="logo">
+    <div className="logo">
       <a href="/">
         <img className="logo__home" src={home} alt="home" />
       </a>
