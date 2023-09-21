@@ -9,9 +9,7 @@ export const movieApi = createApi({
   }),
   endpoints: (builder) => ({
     getOneMovie: builder.query({
-      query: (query) => ({
-        url: `?apikey=${API_KEY}&i=${query}`,
-      }),
+      query: (query) => `?apikey=${API_KEY}&i=${query}`,
     }),
   }),
 });
