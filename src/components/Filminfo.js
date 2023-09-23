@@ -7,12 +7,11 @@ import { Likes } from "./Likes.js";
 function Filminfo() {
   const paramsName = useParams().id;
   const { data } = useGetOneMovieQuery(paramsName);
-
   return (
     <div className="selected">
       <div className="selected__karta">
         <img src={data?.Poster} alt={data?.Title} />
-        <Likes />
+        <Likes film={data ?? []} />
       </div>
       <div className="selected__text">
         <p>Title: {data?.Title}</p>
@@ -24,7 +23,7 @@ function Filminfo() {
         <p>Released: {data?.Released}</p>
         <p>Actors: {data?.Actors}</p>
         <p>Director: {data?.Director}</p>
-        <p>Description: {data?.Description}</p>
+        <p>Description: {data?.Plot}</p>
       </div>
     </div>
   );

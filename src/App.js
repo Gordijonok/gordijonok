@@ -10,6 +10,8 @@ import { Loading } from "./components/Loading.js";
 import { ThemeProvider } from "./components/ThemeProvider.js";
 import { ErrorBoundary } from "./components/ErrorBoundary.js";
 import { ErrorFallback } from "./components/ErrorFallback.js";
+import { Favourite } from "./components/Favourite.js";
+import { History } from "./components/History.js";
 
 import "./style.css";
 
@@ -48,6 +50,24 @@ function App() {
               </Suspense>
             }
           />
+
+          <Route
+            path="/favourite"
+            element={
+              <Suspense fallback={<Loading />}>
+                <Favourite />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/history"
+            element={
+              <Suspense fallback={<Loading />}>
+                <History />
+              </Suspense>
+            }
+          />
+
           <Route
             path="/filminfo/:id"
             element={

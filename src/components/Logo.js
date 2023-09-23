@@ -1,5 +1,7 @@
 import { useContext } from "react";
 
+import { Link } from "react-router-dom";
+
 import home from "../img/home.png";
 import sun from "../img/sun.png";
 import moon from "../img/moon.png";
@@ -10,9 +12,9 @@ function Logo() {
   const { isDark, setIdDark } = useContext(ThemeContext);
   return (
     <div className="logo">
-      <a href="/">
+      <Link to="/">
         <img className="logo__home" src={home} alt="home" />
-      </a>
+      </Link>
       <img
         className="logo__sun"
         onClick={() => setIdDark((isDark) => !isDark)}
