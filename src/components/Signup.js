@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { useNavigate } from "react-router-dom";
 
-import { regExp } from "./const/const";
+import { isEmail } from "./const/const";
 
 function Signup() {
   const {
@@ -43,7 +43,7 @@ function Signup() {
             {...register("email", {
               required: "This field cannot be empty",
               pattern: {
-                value: regExp,
+                value: isEmail,
                 message: "Email is not valid",
               },
             })}

@@ -17,7 +17,7 @@ function Films({ films }) {
           <Link to={`/filmInfo/${item.imdbID}`}>
             <img src={item.Poster} alt={item.Title} />{" "}
           </Link>
-          <Likes />
+          <Likes film={item} />
         </li>
       );
     });

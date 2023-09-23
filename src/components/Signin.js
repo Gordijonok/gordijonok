@@ -4,7 +4,9 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { regExp } from "./const/const";
+import { LSkey, getDataFromLS, setDataToLS } from "../function/function";
+
+import { isEmail } from "./const/const";
 
 function Signin() {
   const navigate = useNavigate();
@@ -22,7 +24,17 @@ function Signin() {
     if (dataStorage !== null) {
       dataStorage.forEach((item) => {
         if (item.email === data.email && item.password === data.password) {
+          setDataToLS("isAuthorized", data.email);
+          const favourite = data.email + " fav";
+          const history = data.email + " history";
+          if (!getDataFromLS(favourite, '""')) {
+            setDataToLS(LSkey("fav"), []);
+          }
+          if (!getDataFromLS(history, '""')) {
+            setDataToLS(LSkey("history"), []);
+          }
           navigate("/");
+          window.location.reload();
         }
       });
       if (!dataStorage.find((item) => item.email === data.email)) {
@@ -47,7 +59,7 @@ function Signin() {
             {...register("email", {
               required: " This field cannot be empty",
               pattern: {
-                value: regExp,
+                value: isEmail,
                 message: "Email is not valid",
               },
             })}
