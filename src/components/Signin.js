@@ -4,11 +4,16 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
+import { addAllFavoriteMovies } from "../redux/favouriteFilmSlice.js";
+
 import { LSkey, getDataFromLS, setDataToLS } from "../function/function";
 
 import { isEmail } from "./const/const";
 
 function Signin() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -33,8 +38,9 @@ function Signin() {
           if (!getDataFromLS(history, '""')) {
             setDataToLS(LSkey("history"), []);
           }
+
+          dispatch(addAllFavoriteMovies(getDataFromLS(favourite, '""')));
           navigate("/");
-          window.location.reload();
         }
       });
       if (!dataStorage.find((item) => item.email === data.email)) {

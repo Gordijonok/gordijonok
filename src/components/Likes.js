@@ -22,32 +22,32 @@ function Likes({ film }) {
     (favorite) => favorite.imdbID === film.imdbID
   );
 
-  function installike() {
+  const installike = () => {
     if (isAuth) {
       dispatch(addFavoriteMovie(film));
       setDataToLS(isAuthFav, [...getDataFromLS(isAuthFav, '""'), film]);
     } else {
       navigate("/signin");
     }
-  }
+  };
 
-  function instalDislike() {
+  const instalDislike = () => {
     if (isAuth) {
       dispatch(removeFavoriteMovie(film));
       deleteLike(isAuthFav, film);
     } else {
       navigate("/signin");
     }
-  }
+  };
 
   return (
     <>
       {isFav ? (
-        <div onClick={() => installike()} className="head">
+        <div onClick={installike} className="head">
           <span className="film__headlike">❤</span>
         </div>
       ) : (
-        <div onClick={() => instalDislike()} className="head">
+        <div onClick={instalDislike} className="head">
           <span className="film__headdislaike">❤</span>
         </div>
       )}

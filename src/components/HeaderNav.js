@@ -1,15 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+
 import { getDataFromLS, removeDataFromLS } from "../function/function";
 
+import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
+
 function HeaderNav() {
+  const dispatch = useDispatch();
   const isAuthorized = getDataFromLS("isAuthorized", '""');
   const users = getDataFromLS("users", "[]");
   const currentUser = users.find((elem) => elem.email === isAuthorized);
 
   function exitUser() {
     removeDataFromLS("isAuthorized");
-    window.location.reload();
+    dispatch(clearFavoriteMovies());
     navigate("/");
   }
 
