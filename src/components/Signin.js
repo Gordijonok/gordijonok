@@ -1,13 +1,10 @@
 import { useForm } from "react-hook-form";
-
 import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 
 import { addAllFavoriteMovies } from "../redux/favouriteFilmSlice.js";
-
+import { addAllHistoryMovies } from "../redux/historyFilmSlice.js";
 import { LSkey, getDataFromLS, setDataToLS } from "../function/function";
 
 import { isEmail } from "./const/const";
@@ -40,7 +37,9 @@ function Signin() {
           }
 
           dispatch(addAllFavoriteMovies(getDataFromLS(favourite, '""')));
+          dispatch(addAllHistoryMovies(getDataFromLS(history, '""')));
           navigate("/");
+          window.location.reload();
         }
       });
       if (!dataStorage.find((item) => item.email === data.email)) {

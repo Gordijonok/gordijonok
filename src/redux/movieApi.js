@@ -11,7 +11,17 @@ export const movieApi = createApi({
     getOneMovie: builder.query({
       query: (query) => `?apikey=${API_KEY}&i=${query}`,
     }),
+    getallMovie: builder.query({
+      query: (query) => `?apikey=${API_KEY}&type=movie&s=sunshine`,
+    }),
+    getNameMovie: builder.query({
+      query: (query) => `?apikey=${API_KEY}&type=movie&s=${query}`,
+    }),
   }),
 });
 
-export const { useGetOneMovieQuery } = movieApi;
+export const {
+  useGetOneMovieQuery,
+  useGetallMovieQuery,
+  useGetNameMovieQuery,
+} = movieApi;

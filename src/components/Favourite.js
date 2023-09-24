@@ -1,14 +1,11 @@
 import { useContext } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
 
 import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
-
 import { LSkey, removeDataFromLS } from "../function/function.js";
-
 import { ThemeContext } from "../components/ThemeProvider";
 
-import { Films } from "./Films";
+import { FilmCard } from "./FilmCard";
 
 function Favourite() {
   const dispatch = useDispatch();
@@ -34,7 +31,11 @@ function Favourite() {
     <div className={isDark ? "main_black" : "main"}>
       <h2 className="main_title">Your favourite films</h2>
       <button onClick={() => deleteFavorites()}>Clear</button>
-      <Films films={favoriteFilms} />
+      <ul className="films">
+        {favoriteFilms.map((item) => (
+          <FilmCard item={item} />
+        ))}
+      </ul>
     </div>
   );
 }

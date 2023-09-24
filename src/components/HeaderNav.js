@@ -1,9 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { getDataFromLS, removeDataFromLS } from "../function/function";
-
+import { clearHistoryMovies } from "../redux/historyFilmSlice";
 import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
 
 function HeaderNav() {
@@ -12,13 +11,13 @@ function HeaderNav() {
   const users = getDataFromLS("users", "[]");
   const currentUser = users.find((elem) => elem.email === isAuthorized);
 
-  function exitUser() {
+  const exitUser = () => {
     removeDataFromLS("isAuthorized");
     dispatch(clearFavoriteMovies());
-    navigate("/");
-  }
+    dispatch(clearHistoryMovies());
+    window.location.reload();
+  };
 
-  const navigate = useNavigate();
   return (
     <nav className="nav">
       {isAuthorized ? (
@@ -34,7 +33,7 @@ function HeaderNav() {
               History
             </Link>
           </li>
-          <li onClick={() => exitUser()} className="nav__elem">
+          <li onClick={exitUser} className="nav__elem">
             <Link className="white" to="/">
               Log out
             </Link>

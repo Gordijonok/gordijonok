@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { Link } from "react-router-dom";
 
 import home from "../img/home.png";

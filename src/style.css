@@ -224,6 +224,18 @@ button {
   border-radius: 20px;
 }
 
+.history {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.historyitem {
+  list-style: none;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
 @media screen and (max-width: 768px) {
   body {
     font-size: 15px;
