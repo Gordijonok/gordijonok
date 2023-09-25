@@ -23,7 +23,7 @@ function Favourite() {
     return (
       <div className={isDark ? "main_black" : "main"}>
         <h2 className="main_title">Your favourite films</h2>
-        <h3 className="main_title">No items.</h3>
+        <h3 className="main_title">No films.</h3>
       </div>
     );
 

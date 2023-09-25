@@ -25,18 +25,23 @@ function Main() {
   const dispatch = useDispatch();
   const name = new URLSearchParams(location.search).get("search");
   const [searchName, setSearchName] = useState(name || "");
-  const debName = useDebounce(searchName, 2000);
+  const debName = useDebounce(searchName, 1500);
 
   function inputText(e) {
     setSearchName(e.target.value);
   }
 
   useEffect(() => {
-    if (searchName.length > 0) {
+    if (debName.length > 0) {
       navigate(`?search=${debName}`);
       dispatch(addHistoryMovies(debName));
-      if (!JSON.parse(localStorage.getItem(isAuthHis).includes(debName))) {
-        setDataToLS(isAuthHis, [...getDataFromLS(isAuthHis, '""'), debName]);
+      if (isAuth) {
+        if (!localStorage.getItem(isAuthHis)) {
+          setDataToLS(isAuthHis, []);
+        }
+        if (!localStorage.getItem(isAuthHis).includes(debName)) {
+          setDataToLS(isAuthHis, [...getDataFromLS(isAuthHis, '""'), debName]);
+        }
       }
     }
   }, [debName]);

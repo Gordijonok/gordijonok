@@ -232,8 +232,23 @@ button {
 
 .historyitem {
   list-style: none;
-  margin-bottom: 10px;
   color: #fff;
+}
+
+.deleteFilmHistory {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.deleteFilmHistory span {
+  color: rgb(220, 244, 8);
+  cursor: pointer;
+  display: inline-block;
+  height: 15px;
+}
+
+.hisFilm {
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 768px) {

@@ -18,6 +18,11 @@ export function deleteLike(key, data) {
   localStorage.setItem(key, JSON.stringify(films));
 }
 
+export function deleteHitory(key, data) {
+  const history = getDataFromLS(key, "[]").filter((item) => item === data);
+  localStorage.setItem(key, JSON.stringify(history));
+}
+
 export function LSkey(type) {
   const user = JSON.parse(localStorage.getItem("isAuthorized") ?? "[]");
   if (user) {

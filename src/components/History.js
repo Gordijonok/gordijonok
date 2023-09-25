@@ -3,9 +3,16 @@ import { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getDataFromLS, removeDataFromLS } from "../function/function";
+import {
+  getDataFromLS,
+  removeDataFromLS,
+  deleteHitory,
+} from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
-import { clearHistoryMovies } from "../redux/historyFilmSlice.js";
+import {
+  clearHistoryMovies,
+  deleteHistoryMovies,
+} from "../redux/historyFilmSlice.js";
 
 function History() {
   const isAuth = getDataFromLS("isAuthorized", '""');
@@ -23,9 +30,15 @@ function History() {
     return (
       <div className={isDark ? "main_black" : "main"}>
         <h2 className="main_title">Your favourite films</h2>
-        <h3 className="main_title">No items.</h3>
+        <h3 className="main_title">No films.</h3>
       </div>
     );
+  }
+
+  function deleteOneHistory(e) {
+    const delHis = e.target.getAttribute("id");
+    dispatch(deleteHistoryMovies(delHis));
+    //     deleteHistory(isAuthHis, delHis);
   }
 
   return (
@@ -35,9 +48,14 @@ function History() {
           <button onClick={deleteHistory}>clear</button>
           <h2 className="main_title">Your favourite films</h2>
           {history.map((item) => (
-            <Link key={item} to={`/?search=${item}`}>
-              <li className="historyitem">{item}</li>
-            </Link>
+            <div className="deleteFilmHistory">
+              <Link className="hisFilm" key={item} to={`/?search=${item}`}>
+                <li className="historyitem">{item}</li>
+              </Link>
+              <span id={item} onClick={(e) => deleteOneHistory(e)}>
+                delete
+              </span>
+            </div>
           ))}
         </ul>
       </div>
