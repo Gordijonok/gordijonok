@@ -1,13 +1,18 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
 import { LSkey, removeDataFromLS } from "../function/function.js";
 import { ThemeContext } from "../components/ThemeProvider";
 
+import { getDataFromLS } from "../function/function.js";
+
 import { FilmCard } from "./FilmCard";
 
 function Favourite() {
+  const isAuth = getDataFromLS("isAuthorized", '""');
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isDark } = useContext(ThemeContext);
   const favoriteFilms = useSelector(
@@ -18,6 +23,12 @@ function Favourite() {
     dispatch(clearFavoriteMovies());
     removeDataFromLS(LSkey("fav"));
   }
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/");
+    }
+  }, []);
 
   if (favoriteFilms.length === 0)
     return (

@@ -39,7 +39,7 @@ function Main() {
         if (!localStorage.getItem(isAuthHis)) {
           setDataToLS(isAuthHis, []);
         }
-        if (!localStorage.getItem(isAuthHis).includes(debName)) {
+        if (!getDataFromLS(isAuthHis, "[]").includes(debName)) {
           setDataToLS(isAuthHis, [...getDataFromLS(isAuthHis, '""'), debName]);
         }
       }

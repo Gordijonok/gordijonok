@@ -6,8 +6,6 @@ import { FilmCard } from "./FilmCard.js";
 function SearchedFilms({ debName }) {
   const { data, isFetching } = useGetNameMovieQuery(debName);
 
-  console.log(data);
-
   return (
     <div>
       {isFetching ? (

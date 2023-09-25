@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import {
   getDataFromLS,
   removeDataFromLS,
-  deleteHitory,
+  setDataToLS,
 } from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
 import {
@@ -17,9 +17,16 @@ import {
 function History() {
   const isAuth = getDataFromLS("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const history = useSelector((state) => state.historyMovies.historyMovies);
   const { isDark } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/");
+    }
+  }, []);
 
   const deleteHistory = () => {
     dispatch(clearHistoryMovies());
@@ -38,7 +45,10 @@ function History() {
   function deleteOneHistory(e) {
     const delHis = e.target.getAttribute("id");
     dispatch(deleteHistoryMovies(delHis));
-    //     deleteHistory(isAuthHis, delHis);
+    const history = getDataFromLS(isAuthHis, "[]").filter(
+      (item) => item !== delHis
+    );
+    setDataToLS(isAuthHis, history);
   }
 
   return (
@@ -49,8 +59,8 @@ function History() {
           <h2 className="main_title">Your favourite films</h2>
           {history.map((item) => (
             <div className="deleteFilmHistory">
-              <Link className="hisFilm" key={item} to={`/?search=${item}`}>
-                <li className="historyitem">{item}</li>
+              <Link className="hisFilm" to={`/?search=${item}`}>
+                <div className="historyitem">{item}</div>
               </Link>
               <span id={item} onClick={(e) => deleteOneHistory(e)}>
                 delete
