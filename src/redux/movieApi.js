@@ -12,7 +12,7 @@ export const movieApi = createApi({
       query: (query) => `?apikey=${API_KEY}&i=${query}`,
     }),
     getallMovie: builder.query({
-      query: (query) => `?apikey=${API_KEY}&type=movie&s=sunshine`,
+      query: () => `?apikey=${API_KEY}&type=movie&s=sunshine`,
     }),
     getNameMovie: builder.query({
       query: (query) => `?apikey=${API_KEY}&type=movie&s=${query}`,

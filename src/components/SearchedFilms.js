@@ -4,18 +4,20 @@ import { Loading } from "./Loading.js";
 import { FilmCard } from "./FilmCard.js";
 
 function SearchedFilms({ debName }) {
-  const { data, isLoading } = useGetNameMovieQuery(debName);
+  const { data, isFetching } = useGetNameMovieQuery(debName);
 
   return (
     <div>
-      {isLoading ? (
+      {isFetching ? (
         <Loading />
-      ) : (
+      ) : data.Search ? (
         <ul className="films">
           {data.Search.map((item) => (
             <FilmCard key={item.imdbID} item={item} />
           ))}
         </ul>
+      ) : (
+        <h3 className="main_title">No films.</h3>
       )}
     </div>
   );

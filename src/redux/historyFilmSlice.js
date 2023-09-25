@@ -15,6 +15,13 @@ export const historyMoviesSlice = createSlice({
         state.historyMovies.push(action.payload);
       }
     },
+
+    deleteHistoryMovies(state, action) {
+      state.historyMovies = state.historyMovies.filter(
+        (movie) => movie !== action.payload
+      );
+    },
+
     clearHistoryMovies(state) {
       state.historyMovies = [];
     },
@@ -23,6 +30,10 @@ export const historyMoviesSlice = createSlice({
     },
   },
 });
-export const { addAllHistoryMovies, addHistoryMovies, clearHistoryMovies } =
-  historyMoviesSlice.actions;
+export const {
+  addAllHistoryMovies,
+  addHistoryMovies,
+  clearHistoryMovies,
+  deleteHistoryMovies,
+} = historyMoviesSlice.actions;
 export default historyMoviesSlice.reducer;

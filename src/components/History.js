@@ -1,18 +1,32 @@
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-import { getDataFromLS, removeDataFromLS } from "../function/function";
+import {
+  getDataFromLS,
+  removeDataFromLS,
+  setDataToLS,
+} from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
-import { clearHistoryMovies } from "../redux/historyFilmSlice.js";
+import {
+  clearHistoryMovies,
+  deleteHistoryMovies,
+} from "../redux/historyFilmSlice.js";
 
 function History() {
   const isAuth = getDataFromLS("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const history = useSelector((state) => state.historyMovies.historyMovies);
   const { isDark } = useContext(ThemeContext);
+
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/");
+    }
+  }, []);
 
   const deleteHistory = () => {
     dispatch(clearHistoryMovies());
@@ -23,9 +37,18 @@ function History() {
     return (
       <div className={isDark ? "main_black" : "main"}>
         <h2 className="main_title">Your favourite films</h2>
-        <h3 className="main_title">No items.</h3>
+        <h3 className="main_title">No films.</h3>
       </div>
     );
+  }
+
+  function deleteOneHistory(e) {
+    const delHis = e.target.getAttribute("id");
+    dispatch(deleteHistoryMovies(delHis));
+    const history = getDataFromLS(isAuthHis, "[]").filter(
+      (item) => item !== delHis
+    );
+    setDataToLS(isAuthHis, history);
   }
 
   return (
@@ -35,9 +58,14 @@ function History() {
           <button onClick={deleteHistory}>clear</button>
           <h2 className="main_title">Your favourite films</h2>
           {history.map((item) => (
-            <Link key={item} to={`/?search=${item}`}>
-              <li className="historyitem">{item}</li>
-            </Link>
+            <div className="deleteFilmHistory">
+              <Link className="hisFilm" to={`/?search=${item}`}>
+                <div className="historyitem">{item}</div>
+              </Link>
+              <span id={item} onClick={(e) => deleteOneHistory(e)}>
+                delete
+              </span>
+            </div>
           ))}
         </ul>
       </div>
