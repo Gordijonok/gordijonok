@@ -10,6 +10,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary.js";
 import { ErrorFallback } from "./components/ErrorFallback.js";
 import { Favourite } from "./components/Favourite.js";
 import { History } from "./components/History.js";
+import { PrivateRoute } from "./components/PrivateRouter.js";
 
 import "./style.css";
 
@@ -52,17 +53,22 @@ function App() {
           <Route
             path="/favourite"
             element={
-              <Suspense fallback={<Loading />}>
-                <Favourite />
-              </Suspense>
+              <PrivateRoute>
+                <Suspense fallback={<Loading />}>
+                  <Favourite />
+                </Suspense>
+              </PrivateRoute>
             }
           />
+
           <Route
             path="/history"
             element={
-              <Suspense fallback={<Loading />}>
-                <History />
-              </Suspense>
+              <PrivateRoute>
+                <Suspense fallback={<Loading />}>
+                  <History />
+                </Suspense>
+              </PrivateRoute>
             }
           />
 

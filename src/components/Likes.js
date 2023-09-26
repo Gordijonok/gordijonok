@@ -1,7 +1,8 @@
+import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFromLS, setDataToLS, deleteLike } from "../function/function";
+import { getDataFromLS, deleteLike } from "../function/function";
 
 import {
   addFavoriteMovie,
@@ -24,7 +25,6 @@ function Likes({ film }) {
   const installike = () => {
     if (isAuth) {
       dispatch(addFavoriteMovie(film));
-      setDataToLS(isAuthFav, [...getDataFromLS(isAuthFav, '""'), film]);
     } else {
       navigate("/signin");
     }
@@ -53,5 +53,9 @@ function Likes({ film }) {
     </>
   );
 }
+
+Likes.propTypes = {
+  film: PropTypes.object,
+};
 
 export { Likes };

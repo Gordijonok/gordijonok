@@ -5,7 +5,7 @@ export function FilmCard({ item }) {
   return (
     <li key={item.imdbID} className="film">
       <Link to={`/filmInfo/${item.imdbID}`}>
-        <img src={item.Poster} alt={item.Title} />{" "}
+        <img src={item.poster} alt={item.title} />{" "}
       </Link>
       <Likes film={item} />
     </li>
