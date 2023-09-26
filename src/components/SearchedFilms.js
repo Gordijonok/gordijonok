@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import { useGetNameMovieQuery } from "../redux/movieApi.js";
 
 import { Loading } from "./Loading.js";
@@ -10,9 +12,9 @@ function SearchedFilms({ debName }) {
     <div>
       {isFetching ? (
         <Loading />
-      ) : data.Search ? (
+      ) : data ? (
         <ul className="films">
-          {data.Search.map((item) => (
+          {data.map((item) => (
             <FilmCard key={item.imdbID} item={item} />
           ))}
         </ul>
@@ -22,5 +24,9 @@ function SearchedFilms({ debName }) {
     </div>
   );
 }
+
+SearchedFilms.propTypes = {
+  debName: PropTypes.string,
+};
 
 export { SearchedFilms };

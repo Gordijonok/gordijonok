@@ -54,6 +54,7 @@ function Main() {
         className="main__input"
         type="text"
         placeholder="search movie"
+        value={searchName}
       />
       {debName ? (
         <SearchedFilms debName={debName} />
@@ -62,7 +63,7 @@ function Main() {
       ) : (
         <ErrorBoundary fallback={<ErrorFallback />}>
           <ul className="films">
-            {data.Search.map((item) => (
+            {data.map((item) => (
               <FilmCard key={item.imdbID} item={item} />
             ))}
           </ul>
