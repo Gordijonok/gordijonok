@@ -5,8 +5,11 @@ import { useDispatch } from "react-redux";
 import { useDebounce } from "../hook/useDebounce.js";
 import { ErrorBoundary } from "../components/ErrorBoundary.js";
 import { ErrorFallback } from "../components/ErrorFallback.js";
-import { getDataFromLS } from "../function/function.js";
-import { setDataToLS } from "../function/function.js";
+import {
+  setDataToLS,
+  getDataToLS,
+  getDataFromLS,
+} from "../function/function.js";
 import { useGetallMovieQuery } from "../redux/movieApi.js";
 import { addHistoryMovies } from "../redux/historyFilmSlice.js";
 
@@ -36,7 +39,7 @@ function Main() {
       navigate(`?search=${debName}`);
       dispatch(addHistoryMovies(debName));
       if (isAuth) {
-        if (!localStorage.getItem(isAuthHis)) {
+        if (!getDataToLS(isAuthHis)) {
           setDataToLS(isAuthHis, []);
         }
         if (!getDataFromLS(isAuthHis, "[]").includes(debName)) {

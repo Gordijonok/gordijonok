@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { getDataToLS, setDataToLS } from "../function/function.js";
+
 import { isEmail } from "./const/const";
 
 function Signup() {
@@ -17,15 +19,15 @@ function Signup() {
   const [error, setError] = useState(false);
 
   const onSubmit = (data) => {
-    const dataStorage = JSON.parse(localStorage.getItem("users"));
+    const dataStorage = JSON.parse(getDataToLS("users"));
     if (dataStorage === null) {
-      localStorage.setItem("users", JSON.stringify([data]));
+      setDataToLS("users", [data]);
     } else {
       if (dataStorage.find((item) => item.email === data.email)) {
         setError(true);
         return;
       }
-      localStorage.setItem("users", JSON.stringify([...dataStorage, data]));
+      setDataToLS("users", [...dataStorage, data]);
     }
     navigate("/signin");
   };

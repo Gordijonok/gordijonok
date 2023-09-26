@@ -5,7 +5,12 @@ import { useDispatch } from "react-redux";
 
 import { addAllFavoriteMovies } from "../redux/favouriteFilmSlice.js";
 import { addAllHistoryMovies } from "../redux/historyFilmSlice.js";
-import { LSkey, getDataFromLS, setDataToLS } from "../function/function";
+import {
+  LSkey,
+  getDataFromLS,
+  setDataToLS,
+  getDataToLS,
+} from "../function/function";
 
 import { isEmail } from "./const/const";
 
@@ -22,7 +27,7 @@ function Signin() {
   });
   const [error, setError] = useState({});
   const onSign = (data) => {
-    const dataStorage = JSON.parse(localStorage.getItem("users"));
+    const dataStorage = JSON.parse(getDataToLS("users"));
     if (dataStorage !== null) {
       dataStorage.forEach((item) => {
         if (item.email === data.email && item.password === data.password) {
