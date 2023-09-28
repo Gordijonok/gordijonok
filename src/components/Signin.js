@@ -26,21 +26,23 @@ function Signin() {
     mode: "onBlur",
   });
   const [error, setError] = useState({});
+
+  function createFavHistory(email, text) {
+    const name = email + " " + text;
+    if (!getDataFromLS(name, '""')) {
+      setDataToLS(LSkey(text), []);
+    }
+    return name;
+  }
+
   const onSign = (data) => {
     const dataStorage = JSON.parse(getDataToLS("users"));
     if (dataStorage !== null) {
       dataStorage.forEach((item) => {
         if (item.email === data.email && item.password === data.password) {
           setDataToLS("isAuthorized", data.email);
-          const favourite = data.email + " fav";
-          const history = data.email + " history";
-          if (!getDataFromLS(favourite, '""')) {
-            setDataToLS(LSkey("fav"), []);
-          }
-          if (!getDataFromLS(history, '""')) {
-            setDataToLS(LSkey("history"), []);
-          }
-
+          const favourite = createFavHistory(data.email, "fav");
+          const history = createFavHistory(data.email, "history");
           dispatch(addAllFavoriteMovies(getDataFromLS(favourite, '""')));
           dispatch(addAllHistoryMovies(getDataFromLS(history, '""')));
           navigate("/");

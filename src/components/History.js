@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {
   getDataFromLS,
   removeDataFromLS,
+  selector,
   setDataToLS,
 } from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
@@ -18,7 +19,7 @@ function History() {
   const isAuth = getDataFromLS("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
   const dispatch = useDispatch();
-  const history = useSelector((state) => state.historyMovies.historyMovies);
+  const history = useSelector(selector("history"));
   const { isDark } = useContext(ThemeContext);
 
   const deleteHistory = () => {
@@ -51,7 +52,7 @@ function History() {
           <button onClick={deleteHistory}>clear</button>
           <h2 className="main_title">Your search</h2>
           {history.map((item) => (
-            <div className="deleteFilmHistory">
+            <div key={item} className="deleteFilmHistory">
               <Link className="hisFilm" to={`/?search=${item}`}>
                 <div className="historyitem">{item}</div>
               </Link>

@@ -1,21 +1,17 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { getDataFromLS, removeDataFromLS } from "../function/function";
-import { clearHistoryMovies } from "../redux/historyFilmSlice";
-import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
 
 function HeaderNav() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isAuthorized = getDataFromLS("isAuthorized", '""');
   const users = getDataFromLS("users", "[]");
   const currentUser = users.find((elem) => elem.email === isAuthorized);
 
   const exitUser = () => {
     removeDataFromLS("isAuthorized");
-    dispatch(clearFavoriteMovies());
-    dispatch(clearHistoryMovies());
-    window.location.reload();
+    navigate("/");
   };
 
   return (

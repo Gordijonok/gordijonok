@@ -12,7 +12,7 @@ function Filminfo() {
     <div className="selected">
       <div className="selected__karta">
         <img src={data?.poster} alt={data?.pitle} />
-        <Likes film={data ?? []} />
+        <Likes film={data ?? {}} />
       </div>
       <div className="selected__text">
         <p>Title: {data?.title}</p>

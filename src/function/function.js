@@ -30,3 +30,12 @@ export function LSkey(type) {
     return "";
   }
 }
+
+export function selector(type) {
+  if (type === "fav") {
+    return (state) => state.favoriteMovies.favoriteMovies;
+  }
+  if (type === "history") {
+    return (state) => state.historyMovies.historyMovies;
+  }
+}
