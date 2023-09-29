@@ -25,7 +25,7 @@ function SearchedFilms({ debName, isShowSuggest }) {
       {isFetching ? (
         <Loading />
       ) : data ? (
-        <ul className={isShowSuggest ? "filmssearch" : "films"}>
+        <ul className="films">
           {data.map((item) => (
             <FilmCard key={item.imdbID} item={item} />
           ))}

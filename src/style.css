@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-size: 20px;
+  height: 100%;
 }
 
 header {
@@ -84,17 +85,6 @@ a {
   flex-wrap: wrap;
   list-style-type: none;
   justify-content: center;
-}
-
-.filmssearch {
-  position: relative;
-  margin: 0;
-  padding: 0 5px;
-  display: flex;
-  flex-wrap: wrap;
-  list-style-type: none;
-  justify-content: center;
-  top: -433px;
 }
 
 .film {
@@ -265,7 +255,9 @@ button {
 }
 
 .cagest {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 35vw;
   background-color: #fff;
   width: 28vw;
   margin: 0 auto;
