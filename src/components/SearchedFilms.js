@@ -14,8 +14,8 @@ function SearchedFilms({ debName, isShowSuggest }) {
         <div className="cagest">
           <ul className="cagest_films">
             {data.slice(0, 5).map((item) => (
-              <div className="searchitem">
-                <FilmCard key={item.imdbID} item={item} />
+              <div key={item.imdbID} className="searchitem">
+                <FilmCard item={item} />
                 <h6 className="searchtitle">{item.title}</h6>
               </div>
             ))}
