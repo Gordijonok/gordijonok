@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useDebounce } from "../hook/useDebounce.js";
 import { ErrorBoundary } from "../components/ErrorBoundary.js";
 import { ErrorFallback } from "../components/ErrorFallback.js";
-import { setDataToLS, getDataFromLS } from "../function/function.js";
+import { setDataTo, getDataFrom } from "../function/function.js";
 import { useGetallMovieQuery } from "../redux/movieApi.js";
 import { addHistoryMovies } from "../redux/historyFilmSlice.js";
 
@@ -15,7 +15,7 @@ import { SearchedFilms } from "./SearchedFilms.js";
 import { ThemeContext } from "./ThemeProvider.js";
 
 function Main() {
-  const isAuth = getDataFromLS("isAuthorized", '""');
+  const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
   const [isShowSuggest, setIsShowSuggest] = useState(false);
   const { isDark } = useContext(ThemeContext);
@@ -35,8 +35,8 @@ function Main() {
     if (debName.length > 0) {
       navigate(`?search=${debName}`);
       dispatch(addHistoryMovies(debName));
-      if (!getDataFromLS(isAuthHis, "[]").includes(debName)) {
-        setDataToLS(isAuthHis, [...getDataFromLS(isAuthHis, '""'), debName]);
+      if (!getDataFrom(isAuthHis, "[]").includes(debName)) {
+        setDataTo(isAuthHis, [...getDataFrom(isAuthHis, '""'), debName]);
       }
     }
   }, [debName]);

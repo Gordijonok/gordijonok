@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import { getDataToLS, setDataToLS } from "../function/function.js";
+import { getDataTo, setDataTo } from "../function/function.js";
 
 import { isEmail } from "./const/const";
 
@@ -19,15 +19,15 @@ function Signup() {
   const [error, setError] = useState(false);
 
   const onSubmit = (data) => {
-    const dataStorage = JSON.parse(getDataToLS("users"));
+    const dataStorage = JSON.parse(getDataTo("users"));
     if (dataStorage === null) {
-      setDataToLS("users", [data]);
+      setDataTo("users", [data]);
     } else {
       if (dataStorage.find((item) => item.email === data.email)) {
         setError(true);
         return;
       }
-      setDataToLS("users", [...dataStorage, data]);
+      setDataTo("users", [...dataStorage, data]);
     }
     navigate("/signin");
   };

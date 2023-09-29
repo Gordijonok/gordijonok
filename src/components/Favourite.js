@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
-import { LSkey, removeDataFromLS } from "../function/function.js";
+import { key, removeDataFrom } from "../function/function.js";
 import { ThemeContext } from "../components/ThemeProvider";
 import { selector } from "../function/function.js";
 
@@ -15,7 +15,7 @@ function Favourite() {
 
   const deleteFavorites = () => {
     dispatch(clearFavoriteMovies());
-    removeDataFromLS(LSkey("fav"));
+    removeDataFrom(key("fav"));
   };
 
   return (

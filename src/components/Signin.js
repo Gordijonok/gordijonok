@@ -5,12 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { addAllFavoriteMovies } from "../redux/favouriteFilmSlice.js";
 import { addAllHistoryMovies } from "../redux/historyFilmSlice.js";
-import {
-  LSkey,
-  getDataFromLS,
-  setDataToLS,
-  getDataToLS,
-} from "../function/function";
+import { key, getDataFrom, setDataTo, getDataTo } from "../function/function";
 
 import { isEmail } from "./const/const";
 
@@ -29,22 +24,22 @@ function Signin() {
 
   function createFavHistory(email, text) {
     const name = email + " " + text;
-    if (!getDataFromLS(name, '""')) {
-      setDataToLS(LSkey(text), []);
+    if (!getDataFrom(name, '""')) {
+      setDataTo(key(text), []);
     }
     return name;
   }
 
   const onSign = (data) => {
-    const dataStorage = JSON.parse(getDataToLS("users"));
+    const dataStorage = JSON.parse(getDataTo("users"));
     if (dataStorage !== null) {
       dataStorage.forEach((item) => {
         if (item.email === data.email && item.password === data.password) {
-          setDataToLS("isAuthorized", data.email);
+          setDataTo("isAuthorized", data.email);
           const favourite = createFavHistory(data.email, "fav");
           const history = createFavHistory(data.email, "history");
-          dispatch(addAllFavoriteMovies(getDataFromLS(favourite, '""')));
-          dispatch(addAllHistoryMovies(getDataFromLS(history, '""')));
+          dispatch(addAllFavoriteMovies(getDataFrom(favourite, '""')));
+          dispatch(addAllHistoryMovies(getDataFrom(history, '""')));
           navigate("/");
           window.location.reload();
         }

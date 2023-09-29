@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LSkey, getDataFromLS } from "../function/function.js";
+import { key, getDataFrom } from "../function/function.js";
 
 const initialState = {
-  favoriteMovies: getDataFromLS(LSkey("fav"), "[]"),
+  favoriteMovies: getDataFrom(key("fav"), "[]"),
   isLoading: false,
   error: "",
 };

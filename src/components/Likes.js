@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFromLS, deleteLike, selector } from "../function/function";
+import { getDataFrom, deleteLike, selector } from "../function/function";
 
 import {
   addFavoriteMovie,
@@ -10,7 +10,7 @@ import {
 } from "../redux/favouriteFilmSlice";
 
 function Likes({ film }) {
-  const isAuth = getDataFromLS("isAuthorized", '""');
+  const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthFav = isAuth + " fav";
   const navigate = useNavigate();
   const dispatch = useDispatch();

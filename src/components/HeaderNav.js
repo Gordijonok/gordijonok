@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFromLS, removeDataFromLS } from "../function/function";
+import { getDataFrom, removeDataFrom } from "../function/function";
 
 function HeaderNav() {
   const navigate = useNavigate();
-  const isAuthorized = getDataFromLS("isAuthorized", '""');
-  const users = getDataFromLS("users", "[]");
+  const isAuthorized = getDataFrom("isAuthorized", '""');
+  const users = getDataFrom("users", "[]");
   const currentUser = users.find((elem) => elem.email === isAuthorized);
 
   const exitUser = () => {
-    removeDataFromLS("isAuthorized");
+    removeDataFrom("isAuthorized");
     navigate("/");
   };
 

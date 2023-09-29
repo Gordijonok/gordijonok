@@ -4,10 +4,10 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 import {
-  getDataFromLS,
-  removeDataFromLS,
+  getDataFrom,
+  removeDataFrom,
   selector,
-  setDataToLS,
+  setDataTo,
 } from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
 import {
@@ -16,7 +16,7 @@ import {
 } from "../redux/historyFilmSlice.js";
 
 function History() {
-  const isAuth = getDataFromLS("isAuthorized", '""');
+  const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
   const dispatch = useDispatch();
   const history = useSelector(selector("history"));
@@ -24,7 +24,7 @@ function History() {
 
   const deleteHistory = () => {
     dispatch(clearHistoryMovies());
-    removeDataFromLS(isAuthHis);
+    removeDataFrom(isAuthHis);
   };
 
   if (history < 1) {
@@ -39,10 +39,10 @@ function History() {
   function deleteOneHistory(e) {
     const delHis = e.target.getAttribute("id");
     dispatch(deleteHistoryMovies(delHis));
-    const history = getDataFromLS(isAuthHis, "[]").filter(
+    const history = getDataFrom(isAuthHis, "[]").filter(
       (item) => item !== delHis
     );
-    setDataToLS(isAuthHis, history);
+    setDataTo(isAuthHis, history);
   }
 
   return (

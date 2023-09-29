@@ -1,10 +1,10 @@
 import { Navigate, useLocation } from "react-router-dom";
 
-import { getDataFromLS } from "../function/function";
+import { getDataFrom } from "../function/function";
 
 export function PrivateRoute({ children }) {
   const location = useLocation();
-  const isAuthorized = getDataFromLS("isAuthorized", '""');
+  const isAuthorized = getDataFrom("isAuthorized", '""');
 
   if (!isAuthorized) {
     return <Navigate to="/signin" state={{ from: location }} />;
