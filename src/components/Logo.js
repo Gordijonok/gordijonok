@@ -16,7 +16,7 @@ function Logo() {
       </Link>
       <img
         className="logo__sun"
-        onClick={() => setIdDark((isDark) => !isDark)}
+        onClick={() => setIdDark(!isDark)}
         src={isDark ? sun : moon}
         alt="sun"
       />

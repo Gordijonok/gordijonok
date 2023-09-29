@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFromLS, deleteLike } from "../function/function";
+import { getDataFrom, deleteLike, selector } from "../function/function";
 
 import {
   addFavoriteMovie,
@@ -10,38 +10,32 @@ import {
 } from "../redux/favouriteFilmSlice";
 
 function Likes({ film }) {
-  const isAuth = getDataFromLS("isAuthorized", '""');
+  const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthFav = isAuth + " fav";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const favoriteMovies = useSelector(
-    (state) => state.favoriteMovies.favoriteMovies
-  );
+  const favoriteMovies = useSelector(selector("fav"));
 
   const isFav = !favoriteMovies.find(
     (favorite) => favorite.imdbID === film.imdbID
   );
 
   const installike = () => {
-    if (isAuth) {
-      dispatch(addFavoriteMovie(film));
-    } else {
-      navigate("/signin");
-    }
+    dispatch(addFavoriteMovie(film));
   };
 
   const instalDislike = () => {
-    if (isAuth) {
-      dispatch(removeFavoriteMovie(film));
-      deleteLike(isAuthFav, film);
-    } else {
-      navigate("/signin");
-    }
+    dispatch(removeFavoriteMovie(film));
+    deleteLike(isAuthFav, film);
   };
 
   return (
     <>
-      {isFav ? (
+      {!isAuth ? (
+        <div onClick={() => navigate("/signin")} className="head">
+          <span className="film__headlike">❤</span>
+        </div>
+      ) : isFav ? (
         <div onClick={installike} className="head">
           <span className="film__headlike">❤</span>
         </div>

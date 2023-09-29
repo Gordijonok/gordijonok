@@ -5,11 +5,7 @@ import { useDispatch } from "react-redux";
 import { useDebounce } from "../hook/useDebounce.js";
 import { ErrorBoundary } from "../components/ErrorBoundary.js";
 import { ErrorFallback } from "../components/ErrorFallback.js";
-import {
-  setDataToLS,
-  getDataToLS,
-  getDataFromLS,
-} from "../function/function.js";
+import { setDataTo, getDataFrom } from "../function/function.js";
 import { useGetallMovieQuery } from "../redux/movieApi.js";
 import { addHistoryMovies } from "../redux/historyFilmSlice.js";
 
@@ -19,8 +15,9 @@ import { SearchedFilms } from "./SearchedFilms.js";
 import { ThemeContext } from "./ThemeProvider.js";
 
 function Main() {
-  const isAuth = getDataFromLS("isAuthorized", '""');
+  const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
+  const [isShowSuggest, setIsShowSuggest] = useState(false);
   const { isDark } = useContext(ThemeContext);
   const { data, isLoading } = useGetallMovieQuery();
   const location = useLocation();
@@ -38,13 +35,8 @@ function Main() {
     if (debName.length > 0) {
       navigate(`?search=${debName}`);
       dispatch(addHistoryMovies(debName));
-      if (isAuth) {
-        if (!getDataToLS(isAuthHis)) {
-          setDataToLS(isAuthHis, []);
-        }
-        if (!getDataFromLS(isAuthHis, "[]").includes(debName)) {
-          setDataToLS(isAuthHis, [...getDataFromLS(isAuthHis, '""'), debName]);
-        }
+      if (!getDataFrom(isAuthHis, "[]").includes(debName)) {
+        setDataTo(isAuthHis, [...getDataFrom(isAuthHis, '""'), debName]);
       }
     }
   }, [debName]);
@@ -54,13 +46,16 @@ function Main() {
       <h2 className="main_title">Movie searching</h2>
       <input
         onChange={(e) => inputText(e)}
+        onFocus={() => setIsShowSuggest(true)}
+        onBlur={() => setTimeout(() => setIsShowSuggest(false), 300)}
         className="main__input"
         type="text"
         placeholder="search movie"
         value={searchName}
       />
+
       {debName ? (
-        <SearchedFilms debName={debName} />
+        <SearchedFilms debName={debName} isShowSuggest={isShowSuggest} />
       ) : isLoading ? (
         <Loading />
       ) : (
