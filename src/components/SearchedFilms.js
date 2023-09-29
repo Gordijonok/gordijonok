@@ -5,15 +5,27 @@ import { useGetNameMovieQuery } from "../redux/movieApi.js";
 import { Loading } from "./Loading.js";
 import { FilmCard } from "./FilmCard.js";
 
-function SearchedFilms({ debName }) {
+function SearchedFilms({ debName, isShowSuggest }) {
   const { data, isFetching } = useGetNameMovieQuery(debName);
 
   return (
-    <div>
+    <div className="contain">
+      {!isFetching && data && isShowSuggest ? (
+        <div className="cagest">
+          <ul className="cagest_films">
+            {data.slice(0, 5).map((item) => (
+              <div className="searchitem">
+                <FilmCard key={item.imdbID} item={item} />
+                <h6 className="searchtitle">{item.title}</h6>
+              </div>
+            ))}
+          </ul>
+        </div>
+      ) : null}
       {isFetching ? (
         <Loading />
       ) : data ? (
-        <ul className="films">
+        <ul className={isShowSuggest ? "filmssearch" : "films"}>
           {data.map((item) => (
             <FilmCard key={item.imdbID} item={item} />
           ))}

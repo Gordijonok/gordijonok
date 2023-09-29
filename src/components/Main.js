@@ -17,6 +17,7 @@ import { ThemeContext } from "./ThemeProvider.js";
 function Main() {
   const isAuth = getDataFromLS("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
+  const [isShowSuggest, setIsShowSuggest] = useState(false);
   const { isDark } = useContext(ThemeContext);
   const { data, isLoading } = useGetallMovieQuery();
   const location = useLocation();
@@ -45,13 +46,16 @@ function Main() {
       <h2 className="main_title">Movie searching</h2>
       <input
         onChange={(e) => inputText(e)}
+        onFocus={() => setIsShowSuggest(true)}
+        onBlur={() => setTimeout(() => setIsShowSuggest(false), 300)}
         className="main__input"
         type="text"
         placeholder="search movie"
         value={searchName}
       />
+
       {debName ? (
-        <SearchedFilms debName={debName} />
+        <SearchedFilms debName={debName} isShowSuggest={isShowSuggest} />
       ) : isLoading ? (
         <Loading />
       ) : (
