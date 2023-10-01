@@ -2,20 +2,20 @@ import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { clearFavoriteMovies } from "../redux/favouriteFilmSlice";
-import { key, removeDataFrom } from "../function/function.js";
+import { key, clearAll } from "../function/function.js";
 import { ThemeContext } from "../components/ThemeProvider";
-import { selector } from "../function/function.js";
+import { selectorFav } from "../function/function.js";
 
 import { FilmCard } from "./FilmCard";
 
 function Favourite() {
   const dispatch = useDispatch();
   const { isDark } = useContext(ThemeContext);
-  const favoriteFilms = useSelector(selector("fav"));
+  const favoriteFilms = useSelector(selectorFav);
 
   const deleteFavorites = () => {
     dispatch(clearFavoriteMovies());
-    removeDataFrom(key("fav"));
+    clearAll(key("fav"));
   };
 
   return (

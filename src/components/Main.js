@@ -1,5 +1,5 @@
-import { useState, useEffect, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { useDebounce } from "../hook/useDebounce.js";
@@ -13,6 +13,7 @@ import { FilmCard } from "./FilmCard.js";
 import { Loading } from "./Loading.js";
 import { SearchedFilms } from "./SearchedFilms.js";
 import { ThemeContext } from "./ThemeProvider.js";
+import { Digest } from "./Digest.js";
 
 function Main() {
   const isAuth = getDataFrom("isAuthorized", '""');
@@ -20,26 +21,28 @@ function Main() {
   const [isShowSuggest, setIsShowSuggest] = useState(false);
   const { isDark } = useContext(ThemeContext);
   const { data, isLoading } = useGetallMovieQuery();
-  const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const name = new URLSearchParams(location.search).get("search");
+  const [searchParams] = useSearchParams();
+  const name = searchParams.get("search");
   const [searchName, setSearchName] = useState(name || "");
-  const debName = useDebounce(searchName, 1500);
+  const debName = useDebounce(searchName, 500);
+  const [keyCod, setKeyCod] = useState(false);
 
   function inputText(e) {
     setSearchName(e.target.value);
+    setKeyCod(false);
   }
 
   useEffect(() => {
-    if (debName.length > 0) {
+    if (debName.length > 0 && keyCod) {
       navigate(`?search=${debName}`);
       dispatch(addHistoryMovies(debName));
       if (!getDataFrom(isAuthHis, "[]").includes(debName)) {
         setDataTo(isAuthHis, [...getDataFrom(isAuthHis, '""'), debName]);
       }
     }
-  }, [debName]);
+  }, [debName, keyCod]);
 
   return (
     <div className={isDark ? "main_black" : "main"}>
@@ -53,11 +56,16 @@ function Main() {
         placeholder="search movie"
         value={searchName}
       />
+      <button onClick={() => setKeyCod(true)} className="search">
+        search
+      </button>
 
-      {debName ? (
-        <SearchedFilms debName={debName} isShowSuggest={isShowSuggest} />
-      ) : isLoading ? (
+      {isLoading ? (
         <Loading />
+      ) : debName && keyCod ? (
+        <SearchedFilms debName={debName} />
+      ) : debName && !keyCod ? (
+        <Digest debName={debName} isShowSuggest={isShowSuggest} />
       ) : (
         <ErrorBoundary fallback={<ErrorFallback />}>
           <ul className="films">

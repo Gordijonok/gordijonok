@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFrom, removeDataFrom } from "../function/function";
+import { getDataFrom, clearAll } from "../function/function";
 
 function HeaderNav() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function HeaderNav() {
   const currentUser = users.find((elem) => elem.email === isAuthorized);
 
   const exitUser = () => {
-    removeDataFrom("isAuthorized");
+    clearAll("isAuthorized");
     navigate("/");
   };
 

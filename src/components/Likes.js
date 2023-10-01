@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { getDataFrom, deleteLike, selector } from "../function/function";
+import { getDataFrom, deleteLike, selectorFav } from "../function/function";
 
 import {
   addFavoriteMovie,
@@ -14,7 +14,7 @@ function Likes({ film }) {
   const isAuthFav = isAuth + " fav";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const favoriteMovies = useSelector(selector("fav"));
+  const favoriteMovies = useSelector(selectorFav);
 
   const isFav = !favoriteMovies.find(
     (favorite) => favorite.imdbID === film.imdbID

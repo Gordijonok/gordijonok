@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 import {
   getDataFrom,
-  removeDataFrom,
-  selector,
+  clearAll,
+  selectorHistory,
   setDataTo,
 } from "../function/function";
 import { ThemeContext } from "../components/ThemeProvider";
@@ -19,12 +19,12 @@ function History() {
   const isAuth = getDataFrom("isAuthorized", '""');
   const isAuthHis = isAuth + " history";
   const dispatch = useDispatch();
-  const history = useSelector(selector("history"));
+  const history = useSelector(selectorHistory);
   const { isDark } = useContext(ThemeContext);
 
   const deleteHistory = () => {
     dispatch(clearHistoryMovies());
-    removeDataFrom(isAuthHis);
+    clearAll(isAuthHis);
   };
 
   if (history < 1) {

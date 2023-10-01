@@ -255,9 +255,7 @@ button {
 }
 
 .cagest {
-  position: absolute;
-  top: 0;
-  left: 35vw;
+  position: relative;
   background-color: #fff;
   width: 28vw;
   margin: 0 auto;
@@ -291,6 +289,11 @@ button {
 
 .contain {
   position: relative;
+}
+
+.search {
+  padding: 5px 15px;
+  border-radius: 20px;
 }
 
 @media screen and (max-width: 768px) {

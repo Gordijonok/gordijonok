@@ -1,16 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-import { addAllFavoriteMovies } from "../redux/favouriteFilmSlice.js";
-import { addAllHistoryMovies } from "../redux/historyFilmSlice.js";
-import { key, getDataFrom, setDataTo, getDataTo } from "../function/function";
+import { setDataTo, getDataTo } from "../function/function";
 
 import { isEmail } from "./const/const";
 
 function Signin() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const {
@@ -22,38 +18,24 @@ function Signin() {
   });
   const [error, setError] = useState({});
 
-  function createFavHistory(email, text) {
-    const name = email + " " + text;
-    if (!getDataFrom(name, '""')) {
-      setDataTo(key(text), []);
-    }
-    return name;
-  }
-
   const onSign = (data) => {
     const dataStorage = JSON.parse(getDataTo("users"));
-    if (dataStorage !== null) {
-      dataStorage.forEach((item) => {
-        if (item.email === data.email && item.password === data.password) {
-          setDataTo("isAuthorized", data.email);
-          const favourite = createFavHistory(data.email, "fav");
-          const history = createFavHistory(data.email, "history");
-          dispatch(addAllFavoriteMovies(getDataFrom(favourite, '""')));
-          dispatch(addAllHistoryMovies(getDataFrom(history, '""')));
-          navigate("/");
-          window.location.reload();
-        }
-      });
-      if (!dataStorage.find((item) => item.email === data.email)) {
-        setError({ email: "User with this email does not exist" });
-        return;
-      }
-      if (!dataStorage.find((item) => item.password === data.password)) {
-        setError({ password: "Invalid password" });
-      }
-    } else {
+    if (!dataStorage) {
       setError({ email: "User with this email does not exist" });
+      return;
     }
+    if (!dataStorage.find((item) => item.email === data.email)) {
+      setError({ email: "User with this email does not exist" });
+      return;
+    }
+    dataStorage.forEach((item) => {
+      if (item.email === data.email && item.password === data.password) {
+        setDataTo("isAuthorized", data.email);
+        navigate("/");
+        window.location.reload();
+      }
+    });
+    setError({ password: "Invalid password" });
   };
 
   return (

@@ -3,7 +3,7 @@ export function getDataFrom(key, arg) {
   return data;
 }
 
-export function removeDataFrom(key) {
+export function clearAll(key) {
   localStorage.removeItem(key);
 }
 
@@ -31,11 +31,6 @@ export function key(type) {
   }
 }
 
-export function selector(type) {
-  if (type === "fav") {
-    return (state) => state.favoriteMovies.favoriteMovies;
-  }
-  if (type === "history") {
-    return (state) => state.historyMovies.historyMovies;
-  }
-}
+export const selectorFav = (state) => state.favoriteMovies.favoriteMovies;
+
+export const selectorHistory = (state) => state.historyMovies.historyMovies;
